@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:contentDescription="Home"
+        android:icon="@drawable/ic_home"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/navigation_search"
+        android:contentDescription="Procurar"
+        android:icon="@drawable/ic_search"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/navigation_camera"
+        android:contentDescription="Camera"
+        android:icon="@drawable/ic_camera"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/navigation_mail"
+        android:contentDescription="Mail"
+        android:icon="@drawable/ic_mail"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/navigation_user"
+        android:contentDescription="Usuário"
+        android:icon="@drawable/ic_user"
+        tools:ignore="MenuTitle" />
+</menu>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.daimajia.slider.library.SliderLayout
+            android:id="@+id/sl_produto_slider"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.daimajia.slider.library.Indicators.PagerIndicator
+            android:id="@+id/sl_produto_pager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/sl_produto_slider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            custom:selected_color="@color/pink_F77274"
+            custom:selected_height="10dp"
+            custom:selected_padding_left="5dp"
+            custom:selected_padding_right="5dp"
+            custom:selected_width="10dp"
+            custom:shape="oval"
+            custom:unselected_color="#55333333"
+            custom:unselected_height="10dp"
+            custom:unselected_padding_left="5dp"
+            custom:unselected_padding_right="5dp"
+            custom:unselected_width="10dp" />
+
+        <TextView
+            android:id="@+id/tv_produto_valor_atual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/gray_494643"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sl_produto_pager"
+            tools:text="R$ 29,00" />
+
+        <TextView
+            android:id="@+id/tv_produto_valor_antigo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/pink_F77274"
+            android:textSize="22sp"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/tv_produto_valor_atual"
+            app:layout_constraintTop_toTopOf="@+id/tv_produto_valor_atual"
+            tools:text="R$ 110,00" />
+
+        <FrameLayout
+            android:id="@+id/fl_produto_comentarios"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@+id/tv_produto_valor_antigo"
+            app:layout_constraintTop_toTopOf="@+id/tv_produto_valor_atual">
+
+            <ImageView
+                android:id="@+id/iv_produto_comentarios_icone"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:background="@drawable/bordas_botao_circular"
+                android:padding="15dp"
+                android:src="@drawable/ic_comment" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_camera"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="top|right"
+                android:src="@color/pink_F77274" />
+
+            <TextView
+                android:id="@+id/iv_produto_comentarios_numero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|right"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="4dp"
+                android:text="5"
+                android:textColor="@color/white_FFFFFF"
+                android:textSize="12sp" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/iv_produto_likes"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@drawable/bordas_botao_circular"
+            android:padding="15dp"
+            android:src="@drawable/ic_like"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fl_produto_comentarios"
+            app:layout_constraintTop_toTopOf="@id/fl_produto_comentarios" />
+
+        <TextView
+            android:id="@+id/tv_produto_valor_desconto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="10% off em até 12x"
+            android:textColor="@color/gray_5B5855"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_produto_valor_atual"
+            app:layout_constraintTop_toBottomOf="@+id/tv_produto_valor_atual" />
+
+        <TextView
+            android:id="@+id/tv_produto_titulo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/gray_5B5855"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/tv_produto_valor_atual"
+            app:layout_constraintTop_toBottomOf="@+id/tv_produto_valor_desconto"
+            tools:text="vestido zara florido" />
+
+        <TextView
+            android:id="@+id/tv_produto_descricao"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/gray_5B5855"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tv_produto_titulo"
+            app:layout_constraintStart_toStartOf="@+id/tv_produto_titulo"
+            app:layout_constraintTop_toBottomOf="@+id/tv_produto_titulo"
+            tools:text="ele ganhou nosso coração! por isso, o espaço do tênis está garantido nas nossas novidades e promete continuar fazendo todas as suas. leia mais" />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
