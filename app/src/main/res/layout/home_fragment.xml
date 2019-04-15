@@ -24,12 +24,13 @@
             tools:ignore="ContentDescription" />
 
         <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
+            android:id="@+id/rv_home_produtos"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_weight="1"
             android:nestedScrollingEnabled="false"
-            android:numColumns="2"
+            app:spanCount="2"
             app:layoutManager="android.support.v7.widget.GridLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
