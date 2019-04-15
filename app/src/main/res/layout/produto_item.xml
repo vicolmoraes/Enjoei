@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_produto_item_layout"
     android:layout_width="150dp"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -64,6 +65,7 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_produto_avatar"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_margin="16dp"

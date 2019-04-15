@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-class UsuarioVO {
+public class UsuarioVO {
     @JsonProperty("id")
     private int idUsuario;
 

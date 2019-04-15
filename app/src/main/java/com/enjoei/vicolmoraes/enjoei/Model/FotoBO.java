@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-class FotoBO {
+public class FotoBO {
     @JsonProperty("public_id")
     private String public_id;
 
@@ -39,7 +39,7 @@ class FotoBO {
     }
 
     public String gerarUrl() {
-        return "http://res.cloudinary.com/demo/image/upload/c_" + this.crop + "g_" + this.gravity + "w_150,h_200/" + this.public_id + ".jpg";
+        return "http://res.cloudinary.com/demo/image/upload/c_" + this.getCrop() + ",g_" + this.getGravity() + ",w_150,h_200/" + this.getPublic_id() + ".jpg";
     }
 
 }

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-class ProdutoVO {
+public class ProdutoVO {
     @JsonProperty("id")
     private int produtoId;
 

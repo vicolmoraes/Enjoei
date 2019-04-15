@@ -8,7 +8,7 @@ public class RetrofitConfig {
 
     public RetrofitConfig() {
         this.retrofit = new Retrofit.Builder()
-                .baseUrl("https://private-anon-14a1a92552-enjoeitest.apiary-mock.com/products/home?")
+                .baseUrl("https://private-anon-14a1a92552-enjoeitest.apiary-mock.com/products/")
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
     }
