@@ -1,85 +1,70 @@
 package com.enjoei.vicolmoraes.enjoei.View;
 
-import android.content.Context;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.daimajia.slider.library.Indicators.PagerIndicator;
-import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
-import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.enjoei.vicolmoraes.enjoei.Model.FotoBO;
+import com.enjoei.vicolmoraes.enjoei.Model.ProdutoVO;
 import com.enjoei.vicolmoraes.enjoei.R;
+import com.enjoei.vicolmoraes.enjoei.ViewModel.ViewPagerAdapter;
+import com.viewpagerindicator.CirclePageIndicator;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
-public class ProdutoFragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
-    private SliderLayout slider;
+public class ProdutoFragment extends Fragment {
+    private static final String PRODUTO = "produto";
+    private ViewPager viewPager;
+    private ProdutoVO produtoVO;
+    private TextView valor;
+    private TextView valorAntigo;
+    private TextView comentarios;
+    private TextView titulo;
+    private TextView descricao;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.produto_fragment, container, false);
 
+        recuperarInformacoes();
         iniciarViews(view);
         return view;
     }
 
+    private void recuperarInformacoes() {
+        Bundle args = getArguments();
+        assert args != null;
+        produtoVO = (ProdutoVO) args.getSerializable(PRODUTO);
+    }
+
     private void iniciarViews(View view) {
-        slider = view.findViewById(R.id.sl_produto_slider);
+        valor = view.findViewById(R.id.tv_produto_valor_atual);
+        valorAntigo = view.findViewById(R.id.tv_produto_valor_antigo);
+        comentarios = view.findViewById(R.id.iv_produto_comentarios_numero);
+        titulo = view.findViewById(R.id.tv_produto_titulo);
+        descricao = view.findViewById(R.id.tv_produto_descricao);
+        viewPager = view.findViewById(R.id.sl_produto_slider);
 
-        ArrayList<String> list = new ArrayList();
-        list.add("http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
-        list.add("https://http2.mlstatic.com/manual-de-criaco-de-canario-belga-envio-gratuito-e-imediato-D_NQ_NP_856221-MLB28102770579_092018-F.jpg");
-        slider = setarSlider(list, (PagerIndicator) view.findViewById(R.id.sl_produto_pager), view.getContext());
-    }
+        valor.setText(NumberFormat.getCurrencyInstance().format(produtoVO.getPrice()));
+        valorAntigo.setText(NumberFormat.getCurrencyInstance().format(produtoVO.getOriginal_price()));
+        valorAntigo.setPaintFlags(valorAntigo.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        comentarios.setText(String.valueOf(produtoVO.getPublished_comments_count()));
+        titulo.setText(produtoVO.getTitle());
+        descricao.setText(produtoVO.getContent());
 
-    public SliderLayout setarSlider(ArrayList<String> list, PagerIndicator pager, Context context) {
-        for (String item : list) {
-            TextSliderView textSliderView = new TextSliderView(context);
-            textSliderView.image(item);
-            textSliderView.setScaleType(BaseSliderView.ScaleType.Fit);
-            slider.addSlider(textSliderView);
-
-            RelativeLayout f = (RelativeLayout) slider.getCurrentSlider().getView();
-            LinearLayout p = f.findViewById(R.id.description_layout);
-            p.setVisibility(View.GONE);
+        ArrayList<String> list = new ArrayList<String>();
+        for (FotoBO url : produtoVO.getPhotos()) {
+            list.add(url.gerarUrl());
         }
-
-        slider.setDuration(4000);
-        slider.addOnPageChangeListener(this);
-        slider.setCustomIndicator(pager);
-
-        return slider;
-    }
-
-    @Override
-    public void onStop() {
-        slider.stopAutoCycle();
-        super.onStop();
-    }
-
-    @Override
-    public void onSliderClick(BaseSliderView slider) {
-
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getContext(), list);
+        viewPager.setAdapter(adapter);
+        CirclePageIndicator circleIndicator = (CirclePageIndicator) view.findViewById(R.id.sl_produto_pager);
+        circleIndicator.setViewPager(viewPager);
     }
 }

@@ -55,7 +55,7 @@ public class IndexActivity extends AppCompatActivity {
         });
     }
 
-    private void iniciarFragments(Fragment fragmento) {
+    public void iniciarFragments(Fragment fragmento) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(flPaginas.getId(), fragmento)

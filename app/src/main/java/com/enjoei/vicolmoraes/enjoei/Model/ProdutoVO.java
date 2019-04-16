@@ -3,10 +3,11 @@ package com.enjoei.vicolmoraes.enjoei.Model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProdutoVO {
+public class ProdutoVO implements Serializable {
     @JsonProperty("id")
     private int produtoId;
 

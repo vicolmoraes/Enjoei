@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,36 +9,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.daimajia.slider.library.SliderLayout
+        <android.support.v4.view.ViewPager
             android:id="@+id/sl_produto_slider"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="300dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.daimajia.slider.library.Indicators.PagerIndicator
+        <com.viewpagerindicator.CirclePageIndicator
             android:id="@+id/sl_produto_pager"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="16dp"
+            app:fillColor="@color/pink_F77274"
             app:layout_constraintBottom_toBottomOf="@+id/sl_produto_slider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            custom:selected_color="@color/pink_F77274"
-            custom:selected_height="10dp"
-            custom:selected_padding_left="5dp"
-            custom:selected_padding_right="5dp"
-            custom:selected_width="10dp"
-            custom:shape="oval"
-            custom:unselected_color="#55333333"
-            custom:unselected_height="10dp"
-            custom:unselected_padding_left="5dp"
-            custom:unselected_padding_right="5dp"
-            custom:unselected_width="10dp" />
+            app:radius="5dp" />
 
         <TextView
             android:id="@+id/tv_produto_valor_atual"
@@ -50,7 +36,7 @@
             android:textColor="@color/gray_494643"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sl_produto_pager"
+            app:layout_constraintTop_toBottomOf="@+id/sl_produto_slider"
             tools:text="R$ 29,00" />
 
         <TextView
@@ -70,8 +56,9 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
+            android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@+id/tv_produto_valor_antigo"
+            app:layout_constraintEnd_toStartOf="@+id/iv_produto_likes"
             app:layout_constraintTop_toTopOf="@+id/tv_produto_valor_atual">
 
             <ImageView
@@ -107,11 +94,11 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/bordas_botao_circular"
             android:padding="15dp"
             android:src="@drawable/ic_like"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/fl_produto_comentarios"
             app:layout_constraintTop_toTopOf="@id/fl_produto_comentarios" />
 
         <TextView

@@ -10,6 +10,17 @@ public class ProdutosVO {
     @JsonProperty("products")
     private ArrayList<ProdutoVO> products;
 
+    @JsonProperty("pagination")
+    private PaginacaoVO pagination;
+
+    public PaginacaoVO getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(PaginacaoVO pagination) {
+        this.pagination = pagination;
+    }
+
     public ArrayList<ProdutoVO> getProducts() {
         return products;
     }
