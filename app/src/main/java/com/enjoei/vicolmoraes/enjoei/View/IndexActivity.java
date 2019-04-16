@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.enjoei.vicolmoraes.enjoei.R;
+import com.enjoei.vicolmoraes.enjoei.ViewModel.BottomNavigationViewHelper;
 
 public class IndexActivity extends AppCompatActivity {
     private BottomNavigationView btvFooter;
@@ -41,18 +42,22 @@ public class IndexActivity extends AppCompatActivity {
                         iniciarFragments(new HomeFragment());
                         break;
                     case R.id.navigation_search:
-                        iniciarFragments(new ProdutoFragment());
+                        iniciarFragments(new ProcurarFragment());
                         break;
                     case R.id.navigation_mail:
+                        iniciarFragments(new MailFragment());
                         break;
                     case R.id.navigation_camera:
+                        iniciarFragments(new CameraFragment());
                         break;
                     case R.id.navigation_user:
+                        iniciarFragments(new UserFragment());
                         break;
                 }
                 return false;
             }
         });
+        BottomNavigationViewHelper.disableShiftMode(btvFooter);
     }
 
     public void iniciarFragments(Fragment fragmento) {

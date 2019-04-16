@@ -38,5 +38,4 @@ dependencies {
     implementation 'com.daimajia.slider:library:1.1.5@aar'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-jackson:2.3.0'
-    implementation 'com.android.support:design:27.1.0'
 }

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Enjoei</string>
+    <string name="usuario">Usuário</string>
+    <string name="camera">Câmera</string>
+    <string name="mail">Mail</string>
+    <string name="home">Home</string>
+    <string name="procurar">Procurar</string>
+    <string name="erro_titulo">turbulências na rede</string>
+    <string name="erro_descricao">nosso cyber voo tá chacoalhando. \n dê uma checada na sua internet \n pra continuar com a gente :P</string>
+    <string name="erro_tentar_novamente">tentar de novo</string>
+    <string name="produto_desconto">10% off em até 12x</string>
+
 </resources>

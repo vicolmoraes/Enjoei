@@ -23,14 +23,12 @@
         android:id="@+id/btv_index_footer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
         app:itemBackground="@null"
         app:itemIconTint="@drawable/selector_menu"
         app:itemTextColor="@drawable/selector_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu2" />
+        app:menu="@menu/menu" />
 
 </android.support.constraint.ConstraintLayout>

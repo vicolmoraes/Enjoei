@@ -16,6 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"
         tools:src="@tools:sample/avatars" />
 
     <TextView
@@ -25,6 +26,7 @@
         android:layout_marginTop="24dp"
         android:textColor="@color/gray_5B5855"
         android:textSize="16sp"
+        android:fontFamily="@font/proximanova_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_produto_item_foto"
@@ -34,6 +36,7 @@
         android:id="@+id/tv_produto_item_valor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/proximanova_bold"
         android:layout_marginTop="8dp"
         android:textColor="@color/pink_F77274"
         android:textSize="16sp"
@@ -84,12 +87,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tv_produto_icone_like"
         app:layout_constraintStart_toEndOf="@+id/v_produto_item_separador_vertical"
-        app:layout_constraintTop_toBottomOf="@+id/v_produto_item_separador" />
+        app:layout_constraintTop_toBottomOf="@+id/v_produto_item_separador"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/tv_produto_icone_like"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/proximanova_regular"
         android:textColor="@color/gray_7D7A77"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_produto_item_icone_like"

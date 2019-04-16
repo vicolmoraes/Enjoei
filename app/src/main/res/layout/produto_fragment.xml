@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
+            android:fontFamily="@font/proximanova_light"
             android:textColor="@color/gray_494643"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:fontFamily="@font/proximanova_light"
             android:textColor="@color/pink_F77274"
             android:textSize="22sp"
             app:layout_constraintHorizontal_bias="0"
@@ -68,7 +70,8 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:background="@drawable/bordas_botao_circular"
                 android:padding="15dp"
-                android:src="@drawable/ic_comment" />
+                android:src="@drawable/ic_comment"
+                tools:ignore="ContentDescription" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_camera"
@@ -81,10 +84,11 @@
                 android:id="@+id/iv_produto_comentarios_numero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/proximanova_regular"
                 android:layout_gravity="top|right"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="4dp"
-                android:text="5"
+                tools:text="5"
                 android:textColor="@color/white_FFFFFF"
                 android:textSize="12sp" />
         </FrameLayout>
@@ -99,14 +103,16 @@
             android:padding="15dp"
             android:src="@drawable/ic_like"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/fl_produto_comentarios" />
+            app:layout_constraintTop_toTopOf="@id/fl_produto_comentarios"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tv_produto_valor_desconto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/proximanova_light"
             android:layout_marginTop="8dp"
-            android:text="10% off em até 12x"
+            android:text="@string/produto_desconto"
             android:textColor="@color/gray_5B5855"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/tv_produto_valor_atual"
@@ -118,6 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="24dp"
+            android:fontFamily="@font/proximanova_light"
             android:textColor="@color/gray_5B5855"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -134,6 +141,7 @@
             android:layout_marginTop="24dp"
             android:textColor="@color/gray_5B5855"
             android:textSize="16sp"
+            android:fontFamily="@font/proximanova_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/tv_produto_titulo"
             app:layout_constraintStart_toStartOf="@+id/tv_produto_titulo"
