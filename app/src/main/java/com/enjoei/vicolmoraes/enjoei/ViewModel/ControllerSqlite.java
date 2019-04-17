@@ -10,8 +10,7 @@ import com.enjoei.vicolmoraes.enjoei.Model.ProdutoVO;
 import java.util.ArrayList;
 
 public class ControllerSqlite {
-    private static final String NOME_BANCO = "banco.db";
-    private static final int VERSAO = 1;
+
     private static final String ID = "id";
     private static final String TITLE = "title";
     private static final String PRICE = "price";

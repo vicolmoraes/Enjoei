@@ -1,5 +1,6 @@
 package com.enjoei.vicolmoraes.enjoei.ViewModel;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -19,13 +20,13 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProdutosAdapter extends RecyclerView.Adapter<ProdutosAdapter.ProdutosViewHolder> {
-    private ArrayList<ProdutoVO> listaProdutos;
+    private ArrayList<ProdutoVO> listProduto;
     private ItemClickListener mClickListener;
 
 
     public ProdutosAdapter(ArrayList<ProdutoVO> lista, ItemClickListener mClickListener) {
         this.mClickListener = mClickListener;
-        listaProdutos = lista;
+        this.listProduto = lista;
         notifyDataSetChanged();
     }
 
@@ -37,23 +38,33 @@ public class ProdutosAdapter extends RecyclerView.Adapter<ProdutosAdapter.Produt
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProdutosViewHolder holder, int position) {
-
-        holder.titulo.setText(listaProdutos.get(position).getTitle());
-        holder.preco.setText(NumberFormat.getCurrencyInstance().format(listaProdutos.get(position).getPrice()));
-        holder.likes.setText(String.valueOf(listaProdutos.get(position).getLikes_count()));
-        Picasso.get().load(listaProdutos.get(position).getPhotos().get(0).gerarUrl()).into(holder.imagemProduto);
-        Picasso.get().load(listaProdutos.get(position).getUser().getAvatar().gerarUrl()).into(holder.avatarUsuario);
+    public void onBindViewHolder(@NonNull ProdutosViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        holder.titulo.setText(this.listProduto.get(holder.getAdapterPosition()).getTitle());
+        holder.preco.setText(NumberFormat.getCurrencyInstance().format(this.listProduto.get(holder.getAdapterPosition()).getPrice()));
+        holder.likes.setText(String.valueOf(this.listProduto.get(holder.getAdapterPosition()).getLikes_count()));
+        Picasso.get().load(this.listProduto.get(holder.getAdapterPosition()).getPhotos().get(0).gerarUrl()).into(holder.imagemProduto);
+        Picasso.get().load(this.listProduto.get(holder.getAdapterPosition()).getUser().getAvatar().gerarUrl()).into(holder.avatarUsuario);
         holder.posicao = position;
     }
 
     @Override
     public int getItemCount() {
-        return listaProdutos.size();
+        return this.listProduto.size();
     }
 
     public interface ItemClickListener {
         void click(int posicao);
+    }
+
+    public void clear() {
+        listProduto.clear();
+        notifyDataSetChanged();
+    }
+
+    public void updateInfo(ArrayList<ProdutoVO> lista) {
+        int tamanhoAnterior = listProduto.size();
+        listProduto.addAll(lista);
+        notifyItemRangeInserted(tamanhoAnterior - 1, lista.size());
     }
 
     public class ProdutosViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

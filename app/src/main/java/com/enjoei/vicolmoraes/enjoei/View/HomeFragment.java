@@ -4,15 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.enjoei.vicolmoraes.enjoei.Model.FotoBO;
@@ -34,23 +35,21 @@ public class HomeFragment extends Fragment {
 
     private static final String PRODUTO = "produto";
 
-    private RecyclerView rvProdutos;
     private View view;
     private ProdutosAdapter adapter;
     private ArrayList<ProdutoVO> listaProdutos;
     private int paginaAtual;
     private int paginaTotal;
-    private SwipeRefreshLayout pullToRefresh;
+    private SwipeRefreshLayout srlRefresh;
     private ControllerSqlite crud;
-    private Cursor cursor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.home_fragment, container, false);
         paginaAtual = 1;
         crud = new ControllerSqlite(getContext());
-        if (isOnline())
-            obterProdutos();
+        if (verificarOnline())
+            obterProdutosAPI();
         else {
             iniciarAdapter();
             iniciarViews();
@@ -58,7 +57,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void obterProdutos() {
+    private void obterProdutosAPI() {
         Call<ProdutosVO> call = new RetrofitConfig().getTransacoes().buscarProdutos(paginaAtual);
         call.enqueue(new Callback<ProdutosVO>() {
             @Override
@@ -66,14 +65,14 @@ public class HomeFragment extends Fragment {
                 ProdutosVO data = response.body();
                 assert data != null;
                 paginaTotal = data.getPagination().getTotal_pages();
-                if (listaProdutos == null)
+                if (listaProdutos == null) {
                     listaProdutos = data.getProducts();
-                else listaProdutos.addAll(data.getProducts());
-                crud.deletarRegistros();
-                crud.insertProdutos(listaProdutos);
-                iniciarAdapter();
-                iniciarViews();
-                Log.e("ERRRO", listaProdutos.get(0).getTitle());
+                    crud.deletarRegistros();
+                    crud.insertProdutos(listaProdutos);
+                    iniciarAdapter();
+                    iniciarViews();
+                } else
+                    adapter.updateInfo(data.getProducts());
             }
 
             @Override
@@ -85,9 +84,9 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void iniciarLista() {
+    private void puxarBancoSqlite() {
         listaProdutos = new ArrayList<>();
-        cursor = crud.carregaDados();
+        Cursor cursor = crud.carregaDados();
         ArrayList<ProdutoVO> listaAux = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
@@ -123,61 +122,61 @@ public class HomeFragment extends Fragment {
     }
 
     private void iniciarAdapter() {
-        if (listaProdutos == null) iniciarLista();
-        ProdutosAdapter.ItemClickListener mClickListener = new ProdutosAdapter.ItemClickListener() {
+        if (adapter == null) {
+            if (this.listaProdutos == null) puxarBancoSqlite();
+            ProdutosAdapter.ItemClickListener mClickListener = new ProdutosAdapter.ItemClickListener() {
 
-            @Override
-            public void click(int posicao) {
-                IndexActivity activity = (IndexActivity) getActivity();
-                ProdutoFragment produto = new ProdutoFragment();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(PRODUTO, listaProdutos.get(posicao));
-                produto.setArguments(bundle);
-                activity.iniciarFragments(produto);
-            }
-        };
-
-        adapter = new ProdutosAdapter(listaProdutos, mClickListener);
+                @Override
+                public void click(int posicao) {
+                    IndexActivity activity = (IndexActivity) getActivity();
+                    ProdutoFragment produto = new ProdutoFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(PRODUTO, listaProdutos.get(posicao));
+                    produto.setArguments(bundle);
+                    activity.iniciarFragments(produto);
+                }
+            };
+            this.adapter = new ProdutosAdapter(listaProdutos, mClickListener);
+        } else
+            this.adapter.notifyDataSetChanged();
     }
 
     private void iniciarViews() {
-        rvProdutos = view.findViewById(R.id.rv_home_produtos);
-        rvProdutos.setAdapter(adapter);
-        pullToRefresh = view.findViewById(R.id.pullToRefresh);
-//        final ScrollView scroll = view.findViewById(R.id.scroll);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            scroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-//                @Override
-//                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//
-//                    int g = scroll.getMaxScrollAmount();
-//
-//                    if (scrollY >= scroll.getMaxScrollAmount()) {
-//                        if (paginaAtual < paginaTotal) {
-//                            Toast.makeText(getContext(), "Refresh", Toast.LENGTH_SHORT).show();
-//                            new Handler().postDelayed(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    paginaAtual++;
-//                                    obterProdutos();
-//                                }
-//                            }, 5000);
-//                        }
-//                    }
-//                }
-//            });
-//        }
-        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Toast.makeText(getContext(), "Refresh", Toast.LENGTH_SHORT).show();
-                pullToRefresh.setRefreshing(false);
-            }
-        });
-
+        RecyclerView rvProdutos = view.findViewById(R.id.rv_home_produtos);
+        rvProdutos.setAdapter(this.adapter);
+        srlRefresh = view.findViewById(R.id.srl_home_refresh);
+        setarRefreshs();
     }
 
-    public boolean isOnline() {
+    public void setarRefreshs() {
+        final ScrollView scroll = view.findViewById(R.id.scroll);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            scroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+                    if (scrollY >= scroll.getMaxScrollAmount()) {
+                        if (paginaAtual < paginaTotal) {
+                            Toast.makeText(getContext(), "Mostrando mais produtos", Toast.LENGTH_SHORT).show();
+                            paginaAtual++;
+                            obterProdutosAPI();
+                        }
+                    }
+                }
+            });
+        }
+
+        srlRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (verificarOnline())
+                    obterProdutosAPI();
+                srlRefresh.setRefreshing(false);
+            }
+        });
+    }
+
+    public boolean verificarOnline() {
         ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return manager.getActiveNetworkInfo() != null &&

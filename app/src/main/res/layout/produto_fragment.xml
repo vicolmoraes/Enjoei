@@ -10,7 +10,7 @@
         android:layout_height="wrap_content">
 
         <com.enjoei.vicolmoraes.enjoei.ViewModel.WrapContentViewPager
-            android:id="@+id/sl_produto_slider"
+            android:id="@+id/vp_produto_slider"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +24,7 @@
             android:layout_gravity="bottom"
             android:layout_marginBottom="16dp"
             app:fillColor="@color/pink_F77274"
-            app:layout_constraintBottom_toBottomOf="@+id/sl_produto_slider"
+            app:layout_constraintBottom_toBottomOf="@+id/vp_produto_slider"
             app:radius="5dp" />
 
         <TextView
@@ -37,14 +37,14 @@
             android:textColor="@color/gray_494643"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sl_produto_slider"
+            app:layout_constraintTop_toBottomOf="@+id/vp_produto_slider"
             tools:text="R$ 29,00" />
 
         <TextView
             android:id="@+id/tv_produto_valor_antigo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:fontFamily="@font/proximanova_light"
             android:textColor="@color/pink_F77274"
             android:textSize="22sp"
@@ -58,8 +58,9 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/tv_produto_valor_antigo"
             app:layout_constraintEnd_toStartOf="@+id/iv_produto_likes"
             app:layout_constraintTop_toTopOf="@+id/tv_produto_valor_atual">
 

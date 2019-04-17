@@ -20,13 +20,7 @@ import java.util.ArrayList;
 
 public class ProdutoFragment extends Fragment {
     private static final String PRODUTO = "produto";
-    private WrapContentViewPager viewPager;
     private ProdutoVO produtoVO;
-    private TextView valor;
-    private TextView valorAntigo;
-    private TextView comentarios;
-    private TextView titulo;
-    private TextView descricao;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,27 +38,27 @@ public class ProdutoFragment extends Fragment {
     }
 
     private void iniciarViews(View view) {
-        valor = view.findViewById(R.id.tv_produto_valor_atual);
-        valorAntigo = view.findViewById(R.id.tv_produto_valor_antigo);
-        comentarios = view.findViewById(R.id.iv_produto_comentarios_numero);
-        titulo = view.findViewById(R.id.tv_produto_titulo);
-        descricao = view.findViewById(R.id.tv_produto_descricao);
-        viewPager = view.findViewById(R.id.sl_produto_slider);
+        TextView tvValor = view.findViewById(R.id.tv_produto_valor_atual);
+        TextView tvValorAntigo = view.findViewById(R.id.tv_produto_valor_antigo);
+        TextView tvComentarios = view.findViewById(R.id.iv_produto_comentarios_numero);
+        TextView tvTitulo = view.findViewById(R.id.tv_produto_titulo);
+        TextView tvDescricao = view.findViewById(R.id.tv_produto_descricao);
+        WrapContentViewPager vpSlideFotos = view.findViewById(R.id.vp_produto_slider);
 
-        valor.setText(NumberFormat.getCurrencyInstance().format(produtoVO.getPrice()));
-        valorAntigo.setText(NumberFormat.getCurrencyInstance().format(produtoVO.getOriginal_price()));
-        valorAntigo.setPaintFlags(valorAntigo.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        comentarios.setText(String.valueOf(produtoVO.getPublished_comments_count()));
-        titulo.setText(produtoVO.getTitle());
-        descricao.setText(produtoVO.getContent());
+        tvValor.setText(NumberFormat.getCurrencyInstance().format(produtoVO.getPrice()));
+        tvValorAntigo.setText(NumberFormat.getCurrencyInstance().format(produtoVO.getOriginal_price()));
+        tvValorAntigo.setPaintFlags(tvValorAntigo.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        tvComentarios.setText(String.valueOf(produtoVO.getPublished_comments_count()));
+        tvTitulo.setText(produtoVO.getTitle());
+        tvDescricao.setText(produtoVO.getContent());
 
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         for (FotoBO url : produtoVO.getPhotos()) {
             list.add(url.gerarUrl());
         }
         ViewPagerAdapter adapter = new ViewPagerAdapter(getContext(), list);
-        viewPager.setAdapter(adapter);
-        CirclePageIndicator circleIndicator = (CirclePageIndicator) view.findViewById(R.id.sl_produto_pager);
-        circleIndicator.setViewPager(viewPager);
+        vpSlideFotos.setAdapter(adapter);
+        CirclePageIndicator circleIndicator = view.findViewById(R.id.sl_produto_pager);
+        circleIndicator.setViewPager(vpSlideFotos);
     }
 }
