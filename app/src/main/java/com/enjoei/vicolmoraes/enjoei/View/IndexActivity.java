@@ -67,4 +67,8 @@ public class IndexActivity extends AppCompatActivity {
                 .commit();
     }
 
+    @Override
+    public void onBackPressed() {
+        iniciarFragments(new HomeFragment());
+    }
 }

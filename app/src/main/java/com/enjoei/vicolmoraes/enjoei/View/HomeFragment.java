@@ -46,13 +46,12 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.home_fragment, container, false);
-        paginaAtual = 1;
-        crud = new ControllerSqlite(getContext());
+        iniciarVariaveis();
+        setarRefreshs();
         if (verificarOnline())
             obterProdutosAPI();
         else {
             iniciarAdapter();
-            iniciarViews();
         }
         return view;
     }
@@ -70,7 +69,6 @@ public class HomeFragment extends Fragment {
                     crud.deletarRegistros();
                     crud.insertProdutos(listaProdutos);
                     iniciarAdapter();
-                    iniciarViews();
                 } else
                     adapter.updateInfo(data.getProducts());
             }
@@ -139,16 +137,18 @@ public class HomeFragment extends Fragment {
             this.adapter = new ProdutosAdapter(listaProdutos, mClickListener);
         } else
             this.adapter.notifyDataSetChanged();
-    }
 
-    private void iniciarViews() {
         RecyclerView rvProdutos = view.findViewById(R.id.rv_home_produtos);
         rvProdutos.setAdapter(this.adapter);
-        srlRefresh = view.findViewById(R.id.srl_home_refresh);
-        setarRefreshs();
+    }
+
+    private void iniciarVariaveis() {
+        paginaAtual = 1;
+        crud = new ControllerSqlite(getContext());
     }
 
     public void setarRefreshs() {
+        srlRefresh = view.findViewById(R.id.srl_home_refresh);
         final ScrollView scroll = view.findViewById(R.id.scroll);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             scroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
@@ -169,8 +169,11 @@ public class HomeFragment extends Fragment {
         srlRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (verificarOnline())
+                if (verificarOnline()) {
+                    adapter.clear();
+                    paginaAtual = 1;
                     obterProdutosAPI();
+                }
                 srlRefresh.setRefreshing(false);
             }
         });
