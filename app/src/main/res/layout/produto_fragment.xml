@@ -9,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v4.view.ViewPager
+        <com.enjoei.vicolmoraes.enjoei.ViewModel.WrapContentViewPager
             android:id="@+id/sl_produto_slider"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -3,7 +3,6 @@ package com.enjoei.vicolmoraes.enjoei.View;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import com.enjoei.vicolmoraes.enjoei.Model.FotoBO;
 import com.enjoei.vicolmoraes.enjoei.Model.ProdutoVO;
 import com.enjoei.vicolmoraes.enjoei.R;
 import com.enjoei.vicolmoraes.enjoei.ViewModel.ViewPagerAdapter;
+import com.enjoei.vicolmoraes.enjoei.ViewModel.WrapContentViewPager;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.text.NumberFormat;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class ProdutoFragment extends Fragment {
     private static final String PRODUTO = "produto";
-    private ViewPager viewPager;
+    private WrapContentViewPager viewPager;
     private ProdutoVO produtoVO;
     private TextView valor;
     private TextView valorAntigo;
