@@ -35,7 +35,6 @@ public class IndexActivity extends AppCompatActivity {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                menuItem.getIcon().setTint(getResources().getColor(R.color.pink_F77274));
 
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_home:

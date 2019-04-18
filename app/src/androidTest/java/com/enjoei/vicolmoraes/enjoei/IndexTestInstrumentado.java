@@ -19,6 +19,13 @@ import org.junit.runner.RunWith;
 
 import java.text.NumberFormat;
 
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class IndexTestInstrumentado {
@@ -46,6 +53,13 @@ public class IndexTestInstrumentado {
             Intent intent = new Intent();
             mActivityRule.launchActivity(intent);
             mActivityRule.notify();
+            try {
+                mActivityRule.wait(5000);
+
+            } catch (Exception c) {
+
+            }
+
             RecyclerView re = mActivityRule.getActivity().findViewById(R.id.rv_home_produtos);
             TextView textoTitulo = re.getChildAt(0).findViewById(R.id.tv_produto_item_titulo);
             TextView valor = re.getChildAt(0).findViewById(R.id.tv_produto_item_valor);
@@ -66,20 +80,26 @@ public class IndexTestInstrumentado {
             Intent intent = new Intent();
             mActivityRule.launchActivity(intent);
             mActivityRule.notify();
-            RecyclerView re = mActivityRule.getActivity().findViewById(R.id.rv_home_produtos);
-            TextView texto = re.getChildAt(0).findViewById(R.id.tv_produto_item_titulo);
-            texto.performClick();
-            TextView titulo = mActivityRule.getActivity().findViewById(R.id.tv_produto_titulo);
-            TextView descricao = mActivityRule.getActivity().findViewById(R.id.tv_produto_descricao);
-            TextView valor = mActivityRule.getActivity().findViewById(R.id.tv_produto_valor_atual);
-            TextView comentarios = mActivityRule.getActivity().findViewById(R.id.iv_produto_comentarios_numero);
+            try {
+                mActivityRule.wait(5000);
 
+            } catch (Exception c) {
+
+            }
+            onView(withId(R.id.rv_home_produtos))
+                    .perform(actionOnItemAtPosition(0, click()));
+            try {
+                mActivityRule.wait(5000);
+
+            } catch (Exception c) {
+
+            }
             //Verifica
-            Assert.assertEquals(NumberFormat.getCurrencyInstance().format(produtoVO.getPrice()), valor.getText().toString());
-            Assert.assertEquals(produtoVO.getTitle(), titulo.getText().toString());
-            Assert.assertEquals(produtoVO.getContent(), descricao.getText().toString());
-            Assert.assertEquals(String.valueOf(produtoVO.getPublished_comments_count()), comentarios.getText().toString());
 
+            onView(withId(R.id.tv_produto_titulo)).check(matches(withText(produtoVO.getTitle())));
+            onView(withId(R.id.tv_produto_descricao)).check(matches(withText(produtoVO.getContent())));
+            onView(withId(R.id.tv_produto_valor_atual)).check(matches(withText(NumberFormat.getCurrencyInstance().format(produtoVO.getPrice()))));
+            onView(withId(R.id.iv_produto_comentarios_numero)).check(matches(withText(String.valueOf(produtoVO.getPublished_comments_count()))));
         }
     }
 }
